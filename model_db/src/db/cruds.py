@@ -2,7 +2,9 @@ import uuid
 from typing import Dict, List, Optional
 
 from sqlalchemy.orm import Session
-from src.db import models, schemas
+from model_db.src import schemas
+from model_db.src.db import models
+
 
 def select_project_all(db: Session) -> List[schemas.Project]:
     return db.query(models.Project).all()

@@ -1,10 +1,9 @@
-import os
 from contextlib import contextmanager
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from src.configurations import DBConfigurations
+from model_db.src.configurations import DBConfigurations
 
 engine = create_engine(
     DBConfigurations.sql_alchemy_database_url,

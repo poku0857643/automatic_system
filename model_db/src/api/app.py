@@ -1,10 +1,10 @@
 from logging import getLogger
 
 from fastapi import FastAPI
-from src.api import api, health
-from src.configurations import APIConfigurations
-from src.db import initialize
-from src.db.database import engine
+from model_db.src.api import api, health
+from model_db.src.configurations import APIConfigurations
+from model_db.src import initialize
+from model_db.src.db.database import engine
 
 logger = getLogger(__name__)
 
