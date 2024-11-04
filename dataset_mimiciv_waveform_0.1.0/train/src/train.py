@@ -11,7 +11,7 @@ from src.constants import MODEL_ENUM
 from src.model import (randomforest, mimiciv_wvform_dataset010, SimpleModel,evaluate, train)
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-#from torchvision import transformers
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -48,12 +48,15 @@ def start_run(
 
     test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
+    ### add gemma model
     if model_type == MODEL_ENUM.randomforest.value:
         model = randomforest.RandomForest().to(device)
     elif model_type == MODEL_ENUM.LSTM.value:
         model = nn.LSTM().to(device)
     elif model_type == MODEL_ENUM.LLM.value:
-        model = LLM(dim=1)
+        tokenizer = AutoTokenizer.from_pretrained("llama/Llama3.2-1b")
+        model = AutoModelForCausalLM.from_prertained("llama/Llama3.2-1b")
+
     else:
         raise ValueError("Unknown model or model type not supported.")
     model.eval()
@@ -63,6 +66,7 @@ def start_run(
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
+    
     train(
         model=model,
         criterion=criterion,
