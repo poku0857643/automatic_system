@@ -14,7 +14,7 @@ def unpickle(file: str) -> Dict:
 
 
 def calculate_features(ecg_signal: np.ndarray, ppg_signal: np.ndarray, abp_signal: np.ndarray) -> Dict[str, float]:
-    # Example feature calculations based on the signals
+    # calculate features including COs, PRs, PTTs, SBP, and DBP
     features = {
         "ecg_mean": np.mean(ecg_signal),
         "ecg_std": np.std(ecg_signal),
